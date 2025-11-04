@@ -15,7 +15,12 @@ export function ThemeToggle() {
   }, [])
 
   if (!mounted) {
-    return null
+    return (
+      <Button size='sm' variant='ghost' aria-hidden='true'>
+        <div className='size-4' />
+        <span className='sr-only'>Toggle theme</span>
+      </Button>
+    )
   }
 
   return (
