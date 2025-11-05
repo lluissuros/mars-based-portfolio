@@ -25,6 +25,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     const { data, content } = matter(fileContent)
     return { metadata: { ...data, slug }, content }
   } catch (error) {
+    console.error(error)
     return null
   }
 }

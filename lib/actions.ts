@@ -52,7 +52,7 @@ export async function sendEmail(data: ContactFormInputs) {
       cc: ['lluissuros@gmail.com'],
       subject: 'Contact form submission',
       text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
-      react: ContactFormEmail({ name, email, message })
+      react: await ContactFormEmail({ name, email, message })
     })
 
     if (!data || error) {
