@@ -130,7 +130,7 @@
   }
 
   .title {
-    @apply decoration-border/75 font-serif text-3xl font-bold underline decoration-2 underline-offset-8;
+    @apply decoration-border/75 text-5xl font-bold underline decoration-2 underline-offset-8;
   }
 
   .prose pre {
@@ -171,7 +171,7 @@
   }
 
   .prose h2 {
-    font-size: 1.5em;
+    font-size: 1.25em;
     margin-top: 2em;
     margin-bottom: 1em;
     line-height: 1.3333333;
@@ -221,15 +221,25 @@
     margin-bottom: 0.5em;
   }
 
-  .prose a {
-    color: var(--primary);
-    text-decoration: underline;
-    font-weight: 500;
+  .prose ul li {
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
   }
 
-  /* .prose a:hover {
-    color: var(--primary-foreground);
-  } */
+  .prose a {
+    color: var(--muted-foreground);
+    text-decoration: underline;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+
+  .prose ul li a {
+    font-size: 0.9em;
+  }
+
+  .prose a:hover {
+    color: var(--foreground);
+  }
 
   .prose strong {
     font-weight: 600;
