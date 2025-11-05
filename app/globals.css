@@ -167,6 +167,7 @@
     margin-bottom: 0.8888889em;
     line-height: 1.1111111;
     font-weight: 800;
+    scroll-margin-top: 1rem;
   }
 
   .prose h2 {
@@ -175,6 +176,7 @@
     margin-bottom: 1em;
     line-height: 1.3333333;
     font-weight: 700;
+    scroll-margin-top: 1rem;
   }
 
   .prose h3 {
@@ -183,6 +185,7 @@
     margin-bottom: 0.6em;
     line-height: 1.6;
     font-weight: 600;
+    scroll-margin-top: 1rem;
   }
 
   .prose h4 {
@@ -190,6 +193,12 @@
     margin-bottom: 0.5em;
     line-height: 1.5;
     font-weight: 600;
+    scroll-margin-top: 1rem;
+  }
+
+  .prose h5,
+  .prose h6 {
+    scroll-margin-top: 1rem;
   }
 
   .prose ul,
