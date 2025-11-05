@@ -3,6 +3,7 @@ import { highlight } from 'sugar-high'
 import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote/rsc'
 
 import Counter from '@/components/counter'
+import SendEmailToMyselfButton from '@/components/send-email-to-myself-button'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Code({ children, ...props }: any) {
@@ -12,7 +13,8 @@ function Code({ children, ...props }: any) {
 
 const components = {
   code: Code,
-  Counter
+  Counter,
+  SendEmailToMyselfButton
 }
 
 export default function MDXContent(

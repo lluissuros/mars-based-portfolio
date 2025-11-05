@@ -30,9 +30,6 @@ export default function NewsletterForm() {
   const processForm: SubmitHandler<Inputs> = async data => {
     const result = await subscribe(data)
 
-    console.log(result)
-    console.log('result')
-
     if (result?.error) {
       toast.error(result?.error as string)
       return

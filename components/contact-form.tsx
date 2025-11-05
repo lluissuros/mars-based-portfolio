@@ -31,11 +31,9 @@ export default function ContactForm() {
   const processForm: SubmitHandler<Inputs> = async data => {
     const result = await sendEmail(data)
 
-    console.log(result)
-    console.log('result')
+    console.log('processForm', result)
 
     if (result?.error) {
-      console.log(result)
       toast.error(
         'An error occurred! Please try again.' + result.error.toString()
       )

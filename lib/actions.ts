@@ -19,6 +19,46 @@ try {
   console.error('Failed to initialize Resend:', error)
 }
 
+//just a test that sends an email to myself
+export async function sendEmailToMyself_Test() {
+  let resend: Resend | null = null
+
+  try {
+    if (!process.env.RESEND_API_KEY) {
+      throw new Error('RESEND_API_KEY is not configured')
+    }
+
+    resend = new Resend(process.env.RESEND_API_KEY)
+  } catch (error) {
+    console.error('Failed to initialize Resend:', error)
+  }
+
+  if (!resend) {
+    return {
+      error:
+        'Email service is not configured. Please contact the administrator.'
+    }
+  }
+
+  try {
+    const { data, error } = await resend.emails.send({
+      from: 'onboarding@resend.dev',
+      to: 'lluissuros@gmail.com',
+      subject: 'Alguien de Mars Based ha empezado a mirar el portfolio',
+      html: '<p>Pues eso</p>'
+    })
+
+    if (!data || error) {
+      console.error('error: ', error)
+      throw new Error('Failed to send email')
+    }
+
+    return { success: true }
+  } catch (error) {
+    return { error }
+  }
+}
+
 export async function sendEmail(data: ContactFormInputs) {
   let resend: Resend | null = null
 
@@ -26,6 +66,7 @@ export async function sendEmail(data: ContactFormInputs) {
     if (!process.env.RESEND_API_KEY) {
       throw new Error('RESEND_API_KEY is not configured')
     }
+
     resend = new Resend(process.env.RESEND_API_KEY)
   } catch (error) {
     console.error('Failed to initialize Resend:', error)
@@ -56,6 +97,7 @@ export async function sendEmail(data: ContactFormInputs) {
     })
 
     if (!data || error) {
+      console.error('error: ', error)
       throw new Error('Failed to send email')
     }
 
@@ -98,7 +140,8 @@ export async function subscribe(data: NewsletterFormInputs) {
     })
 
     if (!data || error) {
-      throw new Error('Failed to subscribe')
+      console.error(error)
+      throw new Error('Failed to subscribe: ' + error?.message)
     }
 
     // TODO: Send a welcome email

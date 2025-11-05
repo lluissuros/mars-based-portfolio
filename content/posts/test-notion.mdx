@@ -1,0 +1,333 @@
+---
+  title: test notion
+  summary: NextJs is a powerful React framework that makes it easy to build server-rendered React applications. This post will introduce you to the basics of NextJs.
+  image: /images/posts/introduction-to-nextjs.webp
+  author: 'Lluis Suros'
+  publishedAt: '2025-08-10'
+---
+
+# Mars Based
+
+https://github.com/MarsBased/handbook?tab=readme-ov-file
+
+[MB Technical Essay.pdf](Mars%20Based/MB_Technical_Essay.pdf)
+
+Let’s use this essay/interviews to review my skills and also learn new things if
+possible, but without going too crazy on a particular topic for now 🙏
+
+## TODO tommorrow:
+
+### 1 - Build codebase
+
+✅ See if we can use the https://github.com/hamed-channel/portfolio
+
+and https://github.com/hamed-channel/next-mdx-portfolio, basically use nextv15
+in the complete portfolio, see if it works
+
+Then we can go ahead and follow the youtube
+[https://www.youtube.com/watch?v=hSi_x29bBmE](https://www.youtube.com/watch?v=hSi_x29bBmE)
+
+### 2 - Start answering questions
+
+Dont try to be perfect, just jot down your thoughts, and later I can try to
+polish it if needed
+
+# Next.js:
+
+## Lluis references
+
+https://www.youtube.com/watch?v=iqrgggs0Qk0
+
+https://www.youtube.com/watch?v=hSi_x29bBmE
+https://github.com/hamed-channel/portfolio and
+https://github.com/hamed-channel/next-mdx-portfolio
+
+## Lluis apunts
+
+- node: openAPi, zod, ORM,
+- openApi or similar?
+- zod
+- caching? next.js, Reddis
+- prisma/ typeORM/Sequelize
+  https://medium.com/@aman.ahmed1897/sequelize-vs-typeorm-vs-prisma-choosing-the-right-orm-for-your-node-js-project-11c39c8aceb0
+- mdx? (markdown that can import JSX components) https://mdxjs.com/
+- Better auth? https://github.com/rroblsgo/better-auth-tutorial
+  https://www.better-auth.com/
+- shadcn ui? ← I do like that you download the source code and you can just make
+  it yours (and see how it was done, if you are curious). Its on top of radix
+  and tailwind, and it’s like copy paste. When you init it in your project, it
+  can also add theming whihc can be interesting to have
+- Tailwind:
+  - https://github.com/tailwindlabs/prettier-plugin-tailwindcss (sorts the
+    tailwind classes)
+- envirnoment variables (pel local .env, i despres en cloud els secrets)
+- datadog or logging
+
+* ❓ what is my reasoning? I would normally try to see what the client is
+  already doing or what our company is already doing ( so we already have some
+  experiencience and potential help). Otherwise, check the docs, what is the
+  state of the art in the developer community, what is hot but stable enough and
+  hopefully mainstream (so it doesnt get deprecated, and also more devs know
+  about it - I am indie in music, but not so much in development)
+
+  Very cool to have things like prettier-tailwind, in the sense that if we can
+  standarise the codebase, its better for ourselves and if we work with other
+  developers ( probably nowadays or in the near future, we can do a lot of it
+  with AI, like having an agent? correcting PRs according to some code
+  guidelines)
+
+Sometimes I’m happy enough if I know things “exist”, like I know the pointers if
+I need to use it. Then, when the time comes, I deep dive into it. Otherwise, I
+feel like I’m going into a rabbithole that -even if its very interesting- might
+not be applicable at the moment, and probably I will forget about it in a few
+weeks if I dont use it regularly. So I try to help myself by checking on things
+high-level-wise, and then do deep dives when needed.
+
+[Holaaa](https://www.notion.so/Holaaa-2a28057c368480098611e7595a88ea26?pvs=21)
+
+### ❓How you prefer to structure applications in Next.js and why. The more detail, the better.
+
+👉 It’s an interesting question, and probably an opportunity to convey how I try
+to work within teams, when starting a project (or continuing it) In general,
+when deciding how to structure applications, I would first reach out to other
+teammates or client to find out if there are already some guidelines or
+requirements .We might be able to leverage some past experiences, or sometimes
+there might be just some ideas that we want to try out. As I see it, there are
+so many good ways to structure a project (as long as it makes sense, its
+consistent with the framework docs and ideally some trusted sources have tried
+it out in production), and it might also depend on the specific needs of a
+project. At the end of the day, for me the most important part is that there is
+a clear separation of concerns, and that the structure is respected by everybody
+working on the project, so there is a predictability and we can reduce friction.
+I like the new hottest thing as much as any other developer, but we need to be
+practical and consider if it is stable enough and hopefully mainstream (so it
+doesnt get deprecated, there’s enough documentation, and also more devs know
+about it)
+
+I heard a youtuber say once that “everything looks cool when you start a
+project, but when you get to 10k lines you start to see if your initial
+decisions drag you down or not”. And I think it makes sense! As project grows,
+we get to learn from some unexpected problems on how to scale. This is why I
+tend to favor well-tested practices, but since every project is different, we
+might need to adapt to the circumstances as the project grows.
+
+That said, if I had to propose a structure, actually this portfolio next.js app
+could be a good example of a setup I would be happy to follow!
+https://github.com/lluissuros/mars-based-portfolio (in case you anybody wants to
+dig into the details)
+
+Let me unpack my thoughts below:
+
+- I am pretty used to Typescript, and honestly for me is one of the best things
+  that happened to the language. It makes the code much more readable, secure,
+  the interfaces are clear and it’s super important when working with many
+  developers.
+- I find the app **router** very clear for route organisation. Nowadays with
+  server components, most of the content is statically generated, and also make
+  sure that in dynamic routes we use `**generateStaticParams**` to specify the
+  availably pages, to be also rendered statically.
+  - Also, by following the guidelines on Next.js documentation we can acces to
+    built-in optimisations like code splitting, or image optimisation, or
+    caching (when needed, I would not enable caching by default because it can
+    lead to confusing bugs)
+  - (but) Many projects might not need SSR that much (specially Saas where
+    rendering performance/SEO is maybe not that important). I wouldn’t force a
+    big refactor from the old Pages Router just for the sake of it (at Notabene,
+    we were using Pages Router and we never updated Next, because it was _good
+    enough_ and it didn’t really give that much benefit to end users. \*\*
+  - I still don’t have experience with them on a big codebase, but I find the
+    new “Server Components by default” approach very cool, makes sense to me
+    that the client should only be fetching data when interactivity is needed,
+    otherwise we can resort to SSR. There are some caveats though, for example
+    I’m not so sure how to unit test them 🤔
+  - I would leave the `page.tsx` as simple as possible, and just import
+    components from `/components` folder
+- /**components folder:** If the folder grows a lot, I would advocate for some
+  type or re-ordering (eg by domain, or by more “core/reusable” vs “layout”),
+  but I would not overengineer from the start. I’m not a big fan of very big
+  components, and I tend to favor breaking it down into manageable pieces.
+- **/test** folder: I normally like to centralise tests and test custom logic
+  like mocks and config.
+- **/utils , /lib** : A centralized place to have custom logic
+  - I might also want to have dedicated folders for React Hooks, or Server
+    Actions
+  - Having some important separate funcitions might help thorough unit testing
+    with Jest or RTL
+
+Many next.js projects are 90% front end (+ some logic for connecting to
+backends), but others can be heavy on the business logic ( I have a friend in a
+startup -they’re good programmers- that they have a huge Next.js monolith with
+all the business logic, they dont use any separate “backend” at all, and they
+also handle the acces layer to DB in the same next.js repo). It was good for
+them to grow the project faster, and only now after 2 years, they see the need
+for a decoupling (they now prefer to scale front and back independently). This
+kind of experiences remind me that what’s important is to think about our use
+case, about what brings value to the user and what will make sense in the
+mid-term in terms of growing the app while maintaining flexibility.
+
+---
+
+### ❓Which libraries you typically use with Next.js.
+
+Nowadays, I would say that my main go-to libraries would be:
+
+- **Typescript:** (not sure if we can consider it a library) It provides so much
+  clarity on the code, the developer experience also boosts a lot once you get
+  used to it (I’ve been using it for about 5 years). Now with AI, it’s even
+  easier to use and it can help provide clear interfaces between components and
+  external APIs
+- **Tailwind:** Or another similar of CSS library (eg Chakra UI). Actually most
+  of my work has been around Styled Components, but I’ve been finding Tailwind a
+  pleasure to use, it’s really close to the CSS syntax, and it seems to merge
+  with nicely with component libraries like Radix UI and Shadcn. Since it’s very
+  mainstream, it also helps when using AI agents.
+  - One thing I would use is an abstracted CSS theming or style palette (see
+    `globals.css` for an example). This will also provide a quick view on the
+    style guide we are following.
+  - We can also use nice helper libraries like `next-themes` to manage dark mode
+    (or any other theme change)
+  - I also find prettier+tailwind library super useful and it helps avoid
+    conflicts and discussions between developers (for example, by sorting the
+    tailwind classes).
+- **Component library:** In the past, I have been guilty of creating component
+  libraries from scratch, usually bringing up a good amount of pain over time,
+  since the requirements keep changing and the reusable components tend to
+  increase in complexity (for example during my time a Travelperk, pretty much
+  every UI component was in-house coded, to the point that many components had
+  dozens of props). Nowadays, I would advocate for using out-of-the-box
+  component libraries, learning their catalog well and only expand or write UI
+  components from scratch if its really needed. Lately I find
+  [radixUI](https://www.radix-ui.com/) very good for the job, since the
+  components are pretty much unstyled while logically complete (with
+  accessibility and all the difficult quirks) and it combines very well with
+  Tailwind. I am also now playing with
+  [shadcn/ui](https://ui.shadcn.com/docs/components) and I find the approach
+  really cool, since you just download the code (like a copy paste) and can edit
+  it locally to your needs.
+- **Unit testing** with jest, React Testing Library, even cypress for more
+  integration testing if the app is mature enough.
+- **zod:** Basically for validation. For example, it can be used in client-side
+  forms to make sure the user input is consistent with the expected schema, and
+  also when dealing with external APIs, to have a run-time safety check that the
+  received data corresponds with what we are expecting. Since the types are
+  declared as schemas, both backend and fronted can share the same contract.
+- **Some fetching libraries?** I’m not a fan of overusing libraries, but I’ve
+  found useSWR very useful in the past to deal with data revalidation and
+  caching, also axios is nice. If
+
+I guess the list could continue, but these would be my main picks, and the rest
+would depend on the project!
+
+---
+
+### ❓What you consider most important when using Tailwind to style a React application.
+
+I’m have limited experience with Tailwind within a big codebase (I used it for
+my projects, but never professionally yet). But I think the main arquitecture
+points are still valid, regardless the library; in general, what we really want
+to avoid is to have hardcoded values all around the code (which makes design
+changes a real pain)
+
+I would put effort into standarising the design styleguide basics beforehand (ie
+colors, sizes, radius, fonts) on the theme. I think that as long as these values
+are centralised, there is room for experimentation with different libraries or
+approaches.
+
+In the same manner, we can also abstract CSS classes away, specially as we see
+some patterns emerge through the codebase. I think it’s useful but only when
+it’s needed; I like how just looking at the tailwind attributes can give a
+pretty good idea of how the components is styled (but it can be overwhelming
+when there is lots of attributes).
+
+I find it very helpful to use libraries like prettier-tailwind, in the sense
+that if we can standarise the codebase, its better for our own readability and
+specially if we work with other developers.
+
+### ❓How you believe an application should be built to remain maintainable over time.
+
+I think as I gained experience, many of the principles have become more like a
+“gut feeling” instead of a requirements list over time, but this is what comes
+to mind now:
+
+In general, I would try to have separation of concerns (ie routing, components,
+utils, api-related logic, business logic if any, DB access, auth, infra, etc).
+If any of these “folders“ grow too much, consider diving it into logical units
+(ie domains, or maybe follow some
+[Atomic Design](https://atomicdesign.bradfrost.com/chapter-2/) principles)
+
+I would try to use mainstream libraries that I know will probably stick around
+(next, react, tailwind, etc), and use their conventions as much as possible
+before jumping into creating complicated custom middleware or workarounds (I’ve
+been guilty of just not reading the docs enough in the past, and miss simpler
+native solutions).
+
+As much as possible, having a good unit test coverage can help a lot into
+maintaining a robust application. Typescript can help a lot in welcoming new
+developers to the codebase, since it’s much easier to find out what are the
+expected data types around the app. In the same sense, the obvious but necessary
+linters and code formatters (which should be applied both in editor as in the PR
+pipeline)
+
+In terms of components, avoid huge components (it’s actually really just
+separating concerns again)
+
+### ❓Common issues that arise with Next.js and how you typically solve them.
+
+Honestly my main issue is that Next.js changes often (I guess they are keeping
+up and sometimes leading the web development and React ecosystems). There has
+been important breaking changes in the last years, I for a mature product on an
+older version, it might not be worth refactoring and updating, but then it
+becomes harder to finde proper solutions to new features. Luckily I find the
+docs really good, and AI agents seem to adjust to the working Next.js version
+pretty well. I’ve also found that these AI agents can help out immensely into
+navigating complex library upgrades (ideally together with a good unit test
+coverage)
+
+Maybe also the new RSC approach might bring issues when to use Client
+components, in order to optimise the performance. In general, I’m trying to
+stick to the rule of “everything is a server component unless it needs
+interactivity or browser APIs”. I’m still trying to find good ways of debugging
+RSC, since they don’t appear in the browser and they need to be approach more
+like in a backend style (logging)
+
+In the past I’ve also find some caching behaviours. In general nowadays I would
+think about carefully, trying to find out which parts of the app can be
+statically rendered, which ones might work with periodic revalidation, and which
+ones need zero caching because they need to be updated as much as possible (like
+dashboards, or more real time components)
+
+### ❓How you would approach authentication and authorization in a Next.js application.
+
+I have to say I’ve use auth in the projects I’ve worked on, but I never set it
+myself. Sometimes I’m happy enough if I know things “exist”, like I know the
+pointers if I need to use it. Then, when the time comes, I deep dive into it!
+But in any case, I would first survey on our team/company to see if somebody had
+hands-on experience on any library or platform for auth. I value a lot the
+hands-on experience, and also if we can standarise practices across projects
+(this way, it’s also easier to ask for help or share experiences). If it were up
+to me to decide, I would first do some research and get a couple or 3
+candidates. For example, nowadays I could ponder between
+[auth.js](https://authjs.dev/) (which seems easier to implement, and apparently
+comes from the same team as Next.js, and seems very integrated to the next.js
+flow), [better-auth](https://www.better-auth.com/) (seems to have very good
+reviews, lots of tutorials available, also self-hosted and open-source), and
+auth0 (we were using it at Notabene, it worked as an external SaaS, it had a
+nice dashboard, we could also manage M2M tokens from there for our API
+business). Depending on the need of the project, I would then go ahead and build
+a prototype. For the 3 solutions above, I would consider if we need to issue M2M
+credentials (then use auth0, which is also easier to handle for non-coders on
+our company), otherwise I’d go first with the self-hosted solutions.
+
+Regarding roles and permissions, in my experience there is a table on our DB
+where we store the role for each User. We should also set the permissions for
+each role (ie the actions and information she is allowed to access) in a
+convenient way, for example a JSON or TS enums. I believe typically this role
+can be encoded in the JWT, but I’m happy to be proven wrong.
+
+In any case, later on in our codebase (frontend and backend) we need to add
+checks based on the user role and permissions, so for example we can throw an
+error if the user is trying to access an API without the permissions for it.
+
+Also, really make sure there is no leakage on the front end about the tokens
+(keep them in the next.js server side), and never commit any API key or secret
+into the codebase, just use the secrets manager on the cloud providers
