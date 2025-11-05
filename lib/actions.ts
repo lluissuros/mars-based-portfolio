@@ -7,10 +7,38 @@ import ContactFormEmail from '@/emails/contact-form-email'
 
 type ContactFormInputs = z.infer<typeof ContactFormSchema>
 type NewsletterFormInputs = z.infer<typeof NewsletterFormSchema>
-const resend = new Resend(process.env.RESEND_API_KEY)
+
+let resend: Resend | null = null
+
+try {
+  if (!process.env.RESEND_API_KEY) {
+    throw new Error('RESEND_API_KEY is not configured')
+  }
+  resend = new Resend(process.env.RESEND_API_KEY)
+} catch (error) {
+  console.error('Failed to initialize Resend:', error)
+}
 
 export async function sendEmail(data: ContactFormInputs) {
+  let resend: Resend | null = null
+
+  try {
+    if (!process.env.RESEND_API_KEY) {
+      throw new Error('RESEND_API_KEY is not configured')
+    }
+    resend = new Resend(process.env.RESEND_API_KEY)
+  } catch (error) {
+    console.error('Failed to initialize Resend:', error)
+  }
+
   const result = ContactFormSchema.safeParse(data)
+
+  if (!resend) {
+    return {
+      error:
+        'Email service is not configured. Please contact the administrator.'
+    }
+  }
 
   if (result.error) {
     return { error: result.error.format() }
@@ -38,6 +66,24 @@ export async function sendEmail(data: ContactFormInputs) {
 }
 
 export async function subscribe(data: NewsletterFormInputs) {
+  try {
+    if (!process.env.RESEND_API_KEY) {
+      return {
+        error: 'No tinc API KEYS per enviar res, hehe'
+      }
+    }
+    resend = new Resend(process.env.RESEND_API_KEY)
+  } catch (error) {
+    console.error('Failed to initialize Resend:', error)
+  }
+
+  if (!resend) {
+    return {
+      error:
+        'Email service is not configured. Please contact the administrator.'
+    }
+  }
+
   const result = NewsletterFormSchema.safeParse(data)
 
   if (result.error) {

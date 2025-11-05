@@ -30,8 +30,11 @@ export default function NewsletterForm() {
   const processForm: SubmitHandler<Inputs> = async data => {
     const result = await subscribe(data)
 
+    console.log(result)
+    console.log('result')
+
     if (result?.error) {
-      toast.error('An error occurred! Please try again.')
+      toast.error(result?.error as string)
       return
     }
 
@@ -65,7 +68,7 @@ export default function NewsletterForm() {
               />
 
               {errors.email?.message && (
-                <p className='ml-1 mt-2 text-sm text-rose-400'>
+                <p className='mt-2 ml-1 text-sm text-rose-400'>
                   {errors.email.message}
                 </p>
               )}
@@ -82,7 +85,7 @@ export default function NewsletterForm() {
             </div>
 
             <div>
-              <p className='text-xs text-muted-foreground'>
+              <p className='text-muted-foreground text-xs'>
                 We care about your data. Read our{' '}
                 <Link href='/privacy' className='font-bold'>
                   privacy&nbsp;policy.
