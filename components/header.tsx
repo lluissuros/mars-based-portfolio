@@ -46,7 +46,7 @@ export default function Header() {
 
         <ul className='text-muted-foreground flex items-center gap-6 text-sm font-light sm:gap-10'>
           <li className='hover:text-foreground transition-colors'>
-            <Link href='/posts'>Posts</Link>
+            <Link href='/posts'>Parrafades</Link>
           </li>
           <li className='hover:text-foreground transition-colors'>
             <Link href='/projects'>Projects</Link>

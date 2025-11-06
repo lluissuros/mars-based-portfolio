@@ -1,0 +1,167 @@
+---
+  title: Common topics questions
+  summary: Unes parrafades sobre temes comuns.
+  image: /images/posts/meme_presentation.webp
+  author: 'Lluis Suros'
+  publishedAt: '2025-11-06'
+---
+
+## Table of Contents
+
+- [What you value about TypeScript](#what-you-value-about-typescript)
+- [Automated tests in the frontend and backend. Are they needed? What do you prioritize? Describe your overall experience writing tests for the apps you've built](#automated-tests-in-the-frontend-and-backend-are-they-needed-what-do-you-prioritize-describe-your-overall-experience-writing-tests-for-the-apps-youve-built)
+- [What are your thoughts on using AI agents for coding and other work-related tasks? How do you use AI in your professional work](#what-are-your-thoughts-on-using-ai-agents-for-coding-and-other-work-related-tasks-how-do-you-use-ai-in-your-professional-work)
+- [Non-technically, what are the most important factors for a software development project to succeed in both time and quality](#non-technically-what-are-the-most-important-factors-for-a-software-development-project-to-succeed-in-both-time-and-quality)
+
+### ❓ What you value about TypeScript.
+
+In my opinion I think its one of the best things that happened to javascript! I
+love sketching things out in plain js, for example I always enjoyed the
+accessibilty of jotting things down on the Developer Tools in the browser
+console, or just in any node terminal.
+
+But being able to add typing to JS is what empowers the language to be able to
+build big applications that scale with security, avoiding bugs and also serving
+as a kind of documentation for other developers building or interfacing with the
+codebase.
+
+Another valuable impact is that it can serve as a contract between different
+layers across the stack like frontend and backend (we can also validate with zod
+or openAPI), and also through the Database via typed ORMs
+
+One thing I also like is that it can be applied gradually in a codebase, so even
+if a project or feature started quick and dirty with plain js, we can gradually
+update its files to use Typescript.
+
+### ❓Automated tests in the frontend and backend. Are they needed? What do you prioritize? Describe your overall experience writing tests for the apps you’ve built.
+
+I’m a big fan of unit testing, specially in big projects, but I think there are
+many considerations and priorities. My top priority would be to cover business
+logic properly, specially in the backend (it can also help us structure the code
+into small, testable functions). I would normally try to enforce a very thorough
+coverage on the backend side, specially with unit tests. In my experience,
+writing tests get easier once there is patterns in place to follow - sometimes,
+it might be challenging to find the right way to mock, inject dependencies etc.
+Once it is done for one test, I find it easy to just repeat the patterns around.
+
+In general terms, I would advocate for strong unit testing on the backend, and
+integration testing covering the main expected behaviours of the endpoints (we
+did it with Postman at Notabene)
+
+**About Front End testing:**
+
+I also used jest in the Front End with React Testing Library, and I had mixed
+feelings: I think it offers a lot of value when testing complex behaviours in a
+component or library, but I also felt that sometimes the effort to make tests
+work was very sustancial compared to the return.
+
+So around the front-end, I try to be critical on which areas of the code I want
+to unit test (maybe now this is changing with AI tools, which can help in
+dealing with the tests scaffolding and reduce friction on the creation of
+tests). In general terms, I find more valuable the higher level integration
+tests in the front end, which abstract away from the inner components
+implementation details and are closer to what the user sees (but they are also
+longer and harder to build). At notabene we also used Cypress for smoke e2e
+testing (I liked it, but I found it a bit unstable and slow, so we were using it
+with basic cases instead of testing details and they were running on a daily
+instead of every PR. Maybe it has improved or there are newer alternatives for
+e2e)
+
+### ❓What are your thoughts on using AI agents for coding and other work-related tasks? How do you use AI in your professional work?
+
+⚡ (danger, this is one of the topics I’m quite obsessed about lately! I’ll try
+to be brief)
+
+In general, I love it! I think its super interesting, and definitively a game
+changer for our craft. It even makes me feel as if I’m learning a new
+profession. I think the technology is still early and that it will continue
+improving and changing paradigms, so we need to keep our minds open, try new
+things without going to crazy and trust our gut feeling on what is actually
+valuable on a given context.
+
+I’m personally using coding agents (right now I’m happy with Cursor, I also have
+Codex integrated in there). I am enjoying running agents in the background
+(nowadays playing with even running more than one at a time, for more trivial
+tasks), I normally get pleasantly surprised on the quality of the output code,
+but of course we need to review each change manually (and actually, the review
+is what becomes the bottleneck, since we can only focus/review a given amount).
+I believe sometime it can lead to dispersion and multitasking (pretty much like
+working on a team with junior devs), but it keeps it fun and engaging and I feel
+it’s totally worth it.
+
+It’s hard for me to imagine how I could learn programming nowadays, without the
+years of struggle against documentation and stack overflow. I feel privileged
+that I get to see this technology at this moment on my career. I don’t think our
+work is becoming obsolete (yet) since we get to have enough experience to review
+the output and “drive” the machine.
+
+I find it superhelpful on navigating new codebases, asking embarrassing
+questions, bugfixing (we can even attach screenshots), refactoring, creating
+unit tests, updating libraries and generating documentation. Tasks that could be
+super time consuming before can be done in minutes now.
+
+I love it for prototyping and vibe coding, and also we can very easily do design
+work and UX directly in Cursor, and its very helpful also with styling, so it
+can become a bridge for non-developers to step into the codebase and play around
+and propose changes. I also find the output code normally quite beautiful, for
+example it follows the React guidelines much better that many senior backend
+devs lol
+
+I’m very interested in how this tech can be integrated into the corporate flow
+(agentic PR reviews, enforcing a certain common coding styleguide, leveraging
+private internal data to enrich prompts, customise internal flows with MCPs,
+etc)
+
+Coding aside, I also find it potentially useful for any kind of communication
+(emails, internal messaging, solving conflicts, RFCs, READMEs). Nowadays I might
+like to speak to the LLM and then work out a structured message.
+
+I also use it for research and browsing (now with Atlas browser)
+
+In any case, at the same time there’s a big risk of becoming increasingly
+dependent of this systems, to the point that we can “forget” our previous skills
+(for example, sometimes I can feel insecure writing code without the AI
+assistant now, so from time to time I force myself to code again in the
+old-fashion way). Regarding communication, it can also make everything feel
+AI-generated, which is impersonal and annoying.
+
+As an example, I enjoyed “manually” answering the questions on this essay. I
+hope it is easy to tell that I’m a human 🙂 
+
+### ❓Non-technically, what are the most important factors for a software development project to succeed in both time and quality?
+
+This is a very broad topic! I’ll try to sketch some ideas that come to mind
+right now, and I guess there are some many angles that might be specific to the
+company, project or team.
+
+I had one CTO that liked to say “Sales are the department of promises, we are
+the department of apologies 😀”
+
+But in general:
+
+- A reasonable quality/speed balance. This might depend on the project and the
+  level of maturity (in an early startup or an experimental feature, we might
+  just need to hack something that works, and if it does, improve it in a later
+  iteration, while on a more mature product or a “core feature”, we might want
+  to be very quality oriented, reviewing and testing heavily). In any case, the
+  quality/speed balance should be aligned with the project needs.
+- I like working in slices (like in Shape Up methodology), which is focusing on
+  bulding flows that work first. It helps identifying and filtering the core
+  important features and the nice-to-haves, being customer centric and
+  activating the feedback loop earlier. It’s not necessary to follow
+  particularly this methodology to benefit from this pattern!
+- a few things about teammates:
+  - should open to learning new things,
+  - generous with helping out each other,
+  - respectful of others work (avoiding micromanagement, trusting, empowering)
+  - respecting commitments within the work methodology, offering feedback with
+    radical candor if needed, also protecting each other from unreasonable
+    demands from business and management while also having a company-wide
+    high-level view on what is important and really ”moves the needle”
+  - open to reduce scope if needed, if the deadlines are endangered
+- Non technical people:
+  - Ideally clear communication,
+  - avoid changes of scope and respecting the sprints or commitments (try to not
+    add new items randomly in the middle of a sprint),
+  - reasonable time appetites (don’t plan assuming the optimal outcome)
+  - compassionate about the great misteries of software development
