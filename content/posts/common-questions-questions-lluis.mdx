@@ -40,9 +40,10 @@ many considerations and priorities. My top priority would be to cover business
 logic properly, specially in the backend (it can also help us structure the code
 into small, testable functions). I would normally try to enforce a very thorough
 coverage on the backend side, specially with unit tests. In my experience,
-writing tests get easier once there is patterns in place to follow - sometimes,
-it might be challenging to find the right way to mock, inject dependencies etc.
-Once it is done for one test, I find it easy to just repeat the patterns around.
+writing tests gets easier once there are patterns in place to follow -
+sometimes, it might be challenging to find the right way to mock, inject
+dependencies etc. Once it is done for one test, I find it easy to just repeat
+the patterns around.
 
 In general terms, I would advocate for strong unit testing on the backend, and
 integration testing covering the main expected behaviours of the endpoints (we
@@ -57,15 +58,19 @@ work was very sustancial compared to the return.
 
 So around the front-end, I try to be critical on which areas of the code I want
 to unit test (maybe now this is changing with AI tools, which can help in
-dealing with the tests scaffolding and reduce friction on the creation of
-tests). In general terms, I find more valuable the higher level integration
-tests in the front end, which abstract away from the inner components
-implementation details and are closer to what the user sees (but they are also
-longer and harder to build). At notabene we also used Cypress for smoke e2e
-testing (I liked it, but I found it a bit unstable and slow, so we were using it
-with basic cases instead of testing details and they were running on a daily
-instead of every PR. Maybe it has improved or there are newer alternatives for
-e2e)
+dealing with the tests scaffolding and reduce friction on the creation of test
+boilerplate).
+
+In general terms, I find more valuable the higher level integration tests in the
+front end (still using jest and React Testing Library), which abstract away from
+the inner components implementation details and are closer to what the user sees
+(but they are also longer and harder to implement, and for example at Travelperk
+they were time consuming to run).
+
+At Notabene we also used Cypress for smoke e2e testing (I liked it, but I found
+it somewhat unstable and slow, so we were using it with basic cases instead of
+testing details and they were running on a daily instead of every PR. Maybe it
+has improved or there are newer alternatives for e2e)
 
 ### ❓What are your thoughts on using AI agents for coding and other work-related tasks? How do you use AI in your professional work?
 
@@ -76,54 +81,59 @@ In general, I love it! I think its super interesting, and definitively a game
 changer for our craft. It even makes me feel as if I’m learning a new
 profession. I think the technology is still early and that it will continue
 improving and changing paradigms, so we need to keep our minds open, try new
-things without going to crazy and trust our gut feeling on what is actually
-valuable on a given context.
+things without going too crazy, and trust our gut feeling on what is actually
+valuable for a given context.
 
 I’m personally using coding agents (right now I’m happy with Cursor, I also have
 Codex integrated in there). I am enjoying running agents in the background
-(nowadays playing with even running more than one at a time, for more trivial
-tasks), I normally get pleasantly surprised on the quality of the output code,
-but of course we need to review each change manually (and actually, the review
-is what becomes the bottleneck, since we can only focus/review a given amount).
-I believe sometime it can lead to dispersion and multitasking (pretty much like
-working on a team with junior devs), but it keeps it fun and engaging and I feel
-it’s totally worth it.
+(nowadays even playing with running more than one agent at a time, parallelizing
+more trivial tasks).
+
+I normally get pleasantly surprised on the quality of the output code, but of
+course we need to review each change manually (and actually, the review is what
+becomes the bottleneck, since we can only focus/review a given amount). I
+believe sometime it can lead to dispersion and multitasking (there are many
+processes asking for attention), but it keeps it fun and engaging and I feel
+it’s totally worth getting used to it.
 
 It’s hard for me to imagine how I could learn programming nowadays, without the
-years of struggle against documentation and stack overflow. I feel privileged
-that I get to see this technology at this moment on my career. I don’t think our
-work is becoming obsolete (yet) since we get to have enough experience to review
-the output and “drive” the machine.
+years of struggles against documentation, weird error messages and hours on
+Stack Overflow. I feel privileged that I get to see this technology at this
+moment on my career. I don’t think our work is becoming obsolete (yet) since we
+get to have enough experience to review the output and “drive” the process.
 
 I find it superhelpful on navigating new codebases, asking embarrassing
 questions, bugfixing (we can even attach screenshots), refactoring, creating
 unit tests, updating libraries and generating documentation. Tasks that could be
-super time consuming before can be done in minutes now.
+super time consuming before can be done in minutes now. For example, just for
+this little app, I could bump all the libraries versions, solving the breaking
+changes, updating configs and so on in a few minutes!
 
 I love it for prototyping and vibe coding, and also we can very easily do design
 work and UX directly in Cursor, and its very helpful also with styling, so it
 can become a bridge for non-developers to step into the codebase and play around
 and propose changes. I also find the output code normally quite beautiful, for
 example it follows the React guidelines much better that many senior backend
-devs lol
+devs 😆
 
 I’m very interested in how this tech can be integrated into the corporate flow
 (agentic PR reviews, enforcing a certain common coding styleguide, leveraging
 private internal data to enrich prompts, customise internal flows with MCPs,
-etc)
+empowering the sales department, customer service, etc)
 
 Coding aside, I also find it potentially useful for any kind of communication
 (emails, internal messaging, solving conflicts, RFCs, READMEs). Nowadays I might
-like to speak to the LLM and then work out a structured message.
+like to just vent/talk/whine to the LLM and then work out a structured message.
 
 I also use it for research and browsing (now with Atlas browser)
 
 In any case, at the same time there’s a big risk of becoming increasingly
 dependent of this systems, to the point that we can “forget” our previous skills
-(for example, sometimes I can feel insecure writing code without the AI
-assistant now, so from time to time I force myself to code again in the
-old-fashion way). Regarding communication, it can also make everything feel
-AI-generated, which is impersonal and annoying.
+and become stupid and lazy (for example, sometimes I can now feel insecure when
+writing code without the AI assistant, so from time to time I force myself to
+code again in the "old-fashion way"). Regarding communication, it can also make
+everything feel AI-generated, which is impersonal and annoying and even
+insulting.
 
 As an example, I enjoyed “manually” answering the questions on this essay. I
 hope it is easy to tell that I’m a human 🙂 
@@ -146,22 +156,28 @@ But in general:
   to be very quality oriented, reviewing and testing heavily). In any case, the
   quality/speed balance should be aligned with the project needs.
 - I like working in slices (like in Shape Up methodology), which is focusing on
-  bulding flows that work first. It helps identifying and filtering the core
-  important features and the nice-to-haves, being customer centric and
-  activating the feedback loop earlier. It’s not necessary to follow
-  particularly this methodology to benefit from this pattern!
-- A few things about teammates:
-  - should open to learning new things,
-  - generous with helping out each other,
-  - respectful of others work (avoiding micromanagement, trusting, empowering)
-  - respecting commitments within the work methodology, offering feedback with
-    radical candor if needed, also protecting each other from unreasonable
-    demands from business and management while also having a company-wide
-    high-level view on what is important and really ”moves the needle”
-  - open to reduce scope if needed, if the deadlines are endangered
-- Non technical people:
-  - Ideally clear communication,
-  - avoid changes of scope and respecting the sprints or commitments (try to not
-    add new items randomly in the middle of a sprint),
-  - reasonable time appetites (don’t plan assuming the optimal outcome)
-  - compassionate about the great misteries of software development
+  bulding flows that work end to end as soon as possible. It helps identifying
+  and filtering the core important features and the nice-to-haves, being
+  customer centric and activating the feedback loop earlier. It’s not necessary
+  to follow any particular methodology to benefit from this pattern!
+
+A few things about teammates:
+
+- should open to learning new things,
+- generous with helping out each other, on code reviews, pair programming, and
+  also on the personal side
+- respectful of others work (avoiding micromanagement and trusting each other,
+  empowering)
+- respecting commitments within the work methodology, offering feedback with
+  radical candor if needed, also protecting each other from unreasonable demands
+  from business and management while also having a company-wide high-level view
+  on what is important and really ”moves the needle”
+- open to reduce scope if needed, if the deadlines are endangered
+
+About non-technical people:
+
+- Ideally clear communication,
+- avoid changes of scope and respecting the sprints or commitments (try to not
+  add new items randomly in the middle of a sprint),
+- reasonable time appetites (don’t plan assuming the optimal outcome)
+- compassionate about the great misteries of software development
