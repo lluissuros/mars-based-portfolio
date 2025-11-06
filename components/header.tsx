@@ -40,7 +40,7 @@ export default function Header() {
       <nav className='container flex max-w-3xl items-center justify-between'>
         <div>
           <Link href='/' className='font-serif text-2xl font-bold'>
-            <HomeIcon className='size-4 text-sky-950' />
+            <HomeIcon className='size-4 text-sky-950 dark:text-purple-400' />
           </Link>
         </div>
 
