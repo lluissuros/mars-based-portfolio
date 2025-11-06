@@ -18,21 +18,28 @@
 ### ❓How you prefer to structure applications in Next.js and why. The more detail, the better.
 
 It’s an interesting question, and probably an opportunity to convey how I try to
-work within teams, when starting a project (or continuing it) In general, when
-deciding how to structure applications, I would first reach out to other
-teammates or client to find out if there are already some guidelines or
-requirements .We might be able to leverage some past experiences, or sometimes
-there might be just some ideas that we want to try out. As I see it, there are
-so many good ways to structure a project (as long as it makes sense, its
-consistent with the framework docs and ideally some trusted sources have tried
-it out in production), and it might also depend on the specific needs of a
-project. At the end of the day, for me the most important part is that there is
-a clear separation of concerns, and that the structure is respected by everybody
-working on the project, so there is a predictability and we can reduce friction.
+work within teams, both when starting a project from scratch, or joining an
+ongoing one.
+
+In general, when deciding how to structure applications, I would first reach out
+to other teammates -or customers- to find out if there are already some
+guidelines or requirements. We might be able to leverage some past experiences,
+or sometimes there might be just some ideas and technologies that we want to try
+out.
+
+As I see it, there are so many good ways to structure a project (as long as it
+makes sense, its consistent with the framework docs and ideally some trusted
+sources have tested it out in production), and it might also depend on the
+specific needs of a project. At the end of the day, for me the most important
+concept is that there is a clear separation of concerns, and that the structure
+is respected by everybody working on the project, so there is predictability and
+we can reduce friction (I guess nowadays we can even specify it in an agent for
+reviews?).
+
 I like the new hottest thing as much as any other developer, but we need to be
-practical and consider if it is stable enough and hopefully mainstream (so it
-doesnt get deprecated, there’s enough documentation, and also more devs know
-about it)
+practical and consider if it is stable enough and mainstream enough (so it
+doesnt get deprecated, there’s enough documentation, and also more future devs
+know about it)
 
 I heard a youtuber say once that “everything looks cool when you start a
 project, but when you get to 10k lines you start to see if your initial
@@ -43,8 +50,9 @@ might need to adapt to the circumstances as the project grows.
 
 That said, if I had to propose a structure, actually this portfolio next.js app
 could be a good example of a setup I would be happy to follow!
-https://github.com/lluissuros/mars-based-portfolio (in case you anybody wants to
-dig into the details)
+
+👀 [See the Github repo](https://github.com/lluissuros/mars-based-portfolio), in
+case you anybody wants to dig into the details 👀
 
 Let me unpack my thoughts below:
 
@@ -53,9 +61,9 @@ Let me unpack my thoughts below:
   the interfaces are clear and it’s super important when working with many
   developers.
 - I find the app **router** very clear for route organisation. Nowadays with
-  server components, most of the content is statically generated, and also make
-  sure that in dynamic routes we use `**generateStaticParams**` to specify the
-  availably pages, to be also rendered statically.
+  server components, most of the content can be "easily" statically generated,
+  and also make sure that in dynamic routes we use `**generateStaticParams**` to
+  specify the availably pages, to be also rendered statically.
   - Also, by following the guidelines on Next.js documentation we can acces to
     built-in optimisations like code splitting, or image optimisation, or
     caching (when needed, I would not enable caching by default because it can
@@ -64,25 +72,27 @@ Let me unpack my thoughts below:
     rendering performance/SEO is maybe not that important). I wouldn’t force a
     big refactor from the old Pages Router just for the sake of it (at Notabene,
     we were using Pages Router and we never updated Next, because it was _good
-    enough_ and it didn’t really give that much benefit to end users. \*\*
+    enough_, we already had a lot of custom middleware and it didn’t really give
+    that much benefit to our end users. \*\*
   - I still don’t have experience with them on a big codebase, but I find the
     new “Server Components by default” approach very cool, makes sense to me
-    that the client should only be fetching data when interactivity is needed,
-    otherwise we can resort to SSR. There are some caveats though, for example
-    I’m not so sure how to unit test them 🤔
+    that the client should only be fetching data and rendering when
+    interactivity is needed, otherwise we can resort to SSR. There are some
+    caveats though, for example I’m not so sure how to unit test them 🤔
   - I would leave the `page.tsx` as simple as possible, and just import
-    components from `/components` folder
+    components from `/components` folder (trying to keep separation of concerns)
 - /**components folder:** If the folder grows a lot, I would advocate for some
   type or re-ordering (eg by domain, or by more “core/reusable” vs “layout”),
-  but I would not overengineer from the start. I’m not a big fan of very big
-  components, and I tend to favor breaking it down into manageable pieces.
+  but I would not overengineer from the start. I’m not a fan of very big
+  components, and I tend to favor breaking it down into manageable, hopefully
+  reusable pieces.
 - **/test** folder: I normally like to centralise tests and test custom logic
   like mocks and config.
 - **/utils , /lib** : A centralized place to have custom logic
   - I might also want to have dedicated folders for React Hooks, or Server
     Actions
-  - Having some important separate funcitions might help thorough unit testing
-    with Jest or RTL
+  - Having some important separate functions might help thorough unit testing
+    with Jest or React Testing Library
 
 Many next.js projects are 90% front end (+ some logic for connecting to
 backends), but others can be heavy on the business logic ( I have a friend in a
