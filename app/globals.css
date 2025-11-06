@@ -130,7 +130,7 @@
   }
 
   .title {
-    @apply decoration-border/75 text-5xl font-bold underline decoration-2 underline-offset-8;
+    @apply text-5xl font-bold;
   }
 
   .prose pre {

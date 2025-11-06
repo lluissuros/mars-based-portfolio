@@ -144,7 +144,7 @@ export default function ContactForm() {
               disabled={isSubmitting}
               className='w-full disabled:opacity-50'
             >
-              {isSubmitting ? 'Submitting...' : 'Contact Us'}
+              {isSubmitting ? 'Submitting...' : 'Enviar'}
             </Button>
           </div>
           <p className='text-muted-foreground mt-4 text-xs'>
