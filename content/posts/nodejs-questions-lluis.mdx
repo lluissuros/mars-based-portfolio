@@ -1,0 +1,102 @@
+---
+  title: Node.js questions
+  summary: Opinions express.
+  image: /images/posts/meme_server.webp
+  author: 'Lluis Suros'
+  publishedAt: '2025-11-05'
+---
+
+## Table of Contents
+
+- [Which frameworks you use to build Node.js backends](#which-frameworks-you-use-to-build-nodejs-backends)
+- [How you prefer to structure Node.js applications and why. The more detail, the better](#how-you-prefer-to-structure-nodejs-applications-and-why-the-more-detail-the-better)
+- [Your default choice of database system and why](#your-default-choice-of-database-system-and-why)
+- [Why caching is important and how you use caching in a backend application](#why-caching-is-important-and-how-you-use-caching-in-a-backend-application)
+
+### ❓ Which frameworks you use to build Node.js backends.
+
+I always used Express.js, with different flavours. For example at Notabene we
+were using Express with [openAPI](https://www.openapis.org/) specification,
+which we used to define the endpoints and autogenerate the documentation. This
+also helped on specifying the expected data types for our front-end and other
+calling B2B services.
+
+I normally would also use an ORM (at Notabene we used TypeORM with good results,
+and I would like to try Prisma as well, it has good reviews), to interact with a
+postgresSQL database. In very small projects I also used MongoDB with Mongoose,
+which also seemed like a good option and easy to set up.
+
+Besides express.js, I would be interested in trying out
+[Nest.js](https://nestjs.com/), which is a framework on top of express; it seems
+it can help organise the BE through good practices (although it looks a bit
+overwhelming).
+
+On the other side of the spectrum, I also find interesting the idea of building
+a whole first iteration of the app in Next.js, on the API routes. It’s node.js
+code; if the app then starts to grow, we can always move it to a separated
+backend service (I guess it depends on the use case).
+
+### ❓How you prefer to structure Node.js applications and why. The more detail, the better.
+
+I would prefer to organise the app within domains (i.e features). At Notabene we
+used more like `packages`, which was more technically oriented structure
+(because the business logic was very convoluted, with lots of interconnected
+parts, that many times didn't really map to a "feature". We also did it this way
+in order to make it easy to extract some pieces-packages out as separated
+microservices for better scaling)
+
+Overall, I’m also happy to try other patterns out!
+
+Let’s use a expenses feature as an example, from endpoint to Database:
+
+- exposure of the endpoint routes like expenses.routes.ts (probably in here we
+  could do a permissions check)
+- Validation under expenses.validation.ts (openAPI or zod, to ensure we receive
+  the expected data format)
+- Some shared typescript types
+- A file indicating the feature “feature interface” like expenses.controller.ts
+  (basically the entry points to the business logic. Ideally all calls from
+  other domains should only use these methods, while the ones under the service
+  would be kept as private.
+- Business logic would be under expenses.service.ts. This would be heavily unit
+  tested. We might need to add detailed permissions in this logic.
+- a data access layer, with the ORM connecting to DB expenses.repository.ts
+- unit tests under expenses.tests.ts
+
+Besides this, I would have:
+
+- a unified app/server entrypoint, with common validations and security checks
+- a common folder with utils, error messages, logging etc
+- different configs (I guess depending on the stack and the libraries)
+- migrations, if applicable
+
+### ❓Your default choice of database system and why.
+
+I’m really not sure. I don’t consider myself very senior on a particular DB
+(I’ve mainly used Postgress and MySQL), and I was never the one who called the
+shots on DB-related decisions (but I’ve used them extensively while developing
+business logic)
+
+I believe for some projects, specially startups or JSON-based processes, a
+MongoDB setup can be interesting, because it also allows to save unstructured
+JSON (fun fact at Notabene we actually had JSON-like data inside postgresSQL,
+which was a problem performance-wise once these documents started growing a lot)
+Otherwise, I think it can help to have structured SQL data from the beginning.
+
+### ❓Why caching is important and how you use caching in a backend application.
+
+We use caching to avoid the latency of slow and expensive operations (mainly
+database queries), while also we provide a way to not overload the DB with
+repeated operations (I have seen this happening at Notabene). In my experience,
+we can use Reddis which is superfast in-memory cache (oversimplifying, I guess
+its something like a giant dictionary).
+
+When caching, we need to be mindful of the expiration time (if we cache forever,
+then the data is not renewing and the users are not recieving the changes). Also
+it is good to expire now overblow our caching system. Also when mutating values
+on the DB, we need to consider how we want to update (or expire) the related
+cache values.
+
+We can also use it to cache feature flags, auth session, user data and in
+general data that we know doens’t change often and can have a longer cache
+period.

@@ -35,7 +35,9 @@ export default function SendEmailToMyselfButton() {
       variant='secondary'
       className='cursor-pointer'
     >
-      {isSending ? 'Sending…' : 'Send test email to myself'}
+      {isSending
+        ? 'Sending…'
+        : `Ja m'ho estic mirant Lluis, no hi fotis mes hores`}
     </Button>
   )
 }
