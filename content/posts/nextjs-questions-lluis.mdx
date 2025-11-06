@@ -120,7 +120,7 @@ Nowadays, I would say that my main go-to libraries would be:
   of my work has been around Styled Components, but I’ve been finding Tailwind a
   pleasure to use, it’s really close to the CSS syntax, and it seems to merge
   with nicely with component libraries like Radix UI and Shadcn. Since it’s very
-  mainstream, it also helps when using AI agents.
+  mainstream, it also seems to be a good choice when using AI agents.
   - One thing I would use is an abstracted CSS theming or style palette (see
     `globals.css` for an example). This will also provide a quick view on the
     style guide we are following.
@@ -130,20 +130,22 @@ Nowadays, I would say that my main go-to libraries would be:
     conflicts and discussions between developers (for example, by sorting the
     tailwind classes).
 - **Component library:** In the past, I have been guilty of creating component
-  libraries from scratch, usually bringing up a good amount of pain over time,
-  since the requirements keep changing and the reusable components tend to
-  increase in complexity (for example during my time a Travelperk, pretty much
-  every UI component was in-house coded, to the point that many components had
-  dozens of props). Nowadays, I would advocate for using out-of-the-box
-  component libraries, learning their catalog well and only expand or write UI
-  components from scratch if its really needed. Lately I find
-  [radixUI](https://www.radix-ui.com/) very good for the job, since the
-  components are pretty much unstyled while logically complete (with
-  accessibility and all the difficult quirks) and it combines very well with
-  Tailwind. I am also now playing with
+  libraries from scratch (using Storybook), usually bringing up a good amount of
+  pain over time, since the requirements keep changing and the reusable
+  components tend to increase in complexity (for example during my time a
+  Travelperk, pretty much every UI component was in-house coded, to the point
+  that many components had dozens of props).
+
+  Nowadays, I would advocate for using out-of-the-box component libraries,
+  learning their catalog well and only expand or write UI components from
+  scratch if its really needed. I find [radixUI](https://www.radix-ui.com/) very
+  good for the job, since the components are pretty much unstyled while
+  logically complete (with accessibility and all the difficult quirks) and it
+  combines very well with Tailwind. I am also now playing with
   [shadcn/ui](https://ui.shadcn.com/docs/components) and I find the approach
   really cool, since you just download the code (like a copy paste) and can edit
   it locally to your needs.
+
 - **Unit testing** with jest, React Testing Library, even cypress for more
   integration testing if the app is mature enough.
 - **zod:** Basically for validation. For example, it can be used in client-side
@@ -151,9 +153,8 @@ Nowadays, I would say that my main go-to libraries would be:
   also when dealing with external APIs, to have a run-time safety check that the
   received data corresponds with what we are expecting. Since the types are
   declared as schemas, both backend and fronted can share the same contract.
-- **Some fetching libraries?** I’m not a fan of overusing libraries, but I’ve
-  found useSWR very useful in the past to deal with data revalidation and
-  caching, also axios is nice. If
+- **Some fetching libraries?** but I’ve found useSWR very useful in the past to
+  deal with data revalidation and caching, also axios is nice.
 
 I guess the list could continue, but these would be my main picks, and the rest
 would depend on the project!
@@ -168,15 +169,15 @@ points are still valid, regardless the library; in general, what we really want
 to avoid is to have hardcoded values all around the code (which makes design
 changes a real pain)
 
-I would put effort into standarising the design styleguide basics beforehand (ie
-colors, sizes, radius, fonts) on the theme. I think that as long as these values
-are centralised, there is room for experimentation with different libraries or
-approaches.
+I would put effort into standarising the theme and design styleguide basics
+beforehand (ie colors, sizes, radius, fonts). I think that as long as these
+values are centralised, there is room for experimentation with different
+libraries or approaches.
 
 In the same manner, we can also abstract CSS classes away, specially as we see
 some patterns emerge through the codebase. I think it’s useful but only when
 it’s needed; I like how just looking at the tailwind attributes can give a
-pretty good idea of how the components is styled (but it can be overwhelming
+pretty good idea of how the components are styled (but it can be overwhelming
 when there is lots of attributes).
 
 I find it very helpful to use libraries like prettier-tailwind, in the sense
@@ -204,11 +205,12 @@ been guilty of just not reading the docs enough in the past, and miss simpler
 native solutions).
 
 As much as possible, having a good unit test coverage can help a lot into
-maintaining a robust application. Typescript can help a lot in welcoming new
-developers to the codebase, since it’s much easier to find out what are the
-expected data types around the app. In the same sense, the obvious but necessary
-linters and code formatters (which should be applied both in editor as in the PR
-pipeline)
+maintaining a robust application. When the app is mature enough, I would also
+consider adding integration and e2e tests for the most critical behaviours.
+Typescript can help a lot in welcoming new developers to the codebase, since
+it’s much easier to find out what are the expected data types around the app. In
+the same sense, the obvious but necessary linters and code formatters (which
+should be applied both in editor as in the PR pipeline)
 
 In terms of components, avoid huge components (it’s actually really just
 separating concerns again)
@@ -219,22 +221,22 @@ separating concerns again)
 
 Honestly my main issue is that Next.js changes often (I guess they are keeping
 up and sometimes leading the web development and React ecosystems). There has
-been important breaking changes in the last years, I for a mature product on an
-older version, it might not be worth refactoring and updating, but then it
-becomes harder to finde proper solutions to new features. Luckily I find the
-docs really good, and AI agents seem to adjust to the working Next.js version
-pretty well. I’ve also found that these AI agents can help out immensely into
-navigating complex library upgrades (ideally together with a good unit test
-coverage)
+been important breaking changes in the last years, and for a mature product on
+an older version, it might not be worth refactoring and updating (but then it
+becomes harder to find proper solutions to new features, and use the library
+improvements). Luckily I find the Next.js docs really good, and AI agents seem
+to adjust to the working Next.js version pretty well. I’ve also found that these
+AI agents can help out immensely into navigating complex library upgrades
+(ideally together with a good unit test coverage)
 
-Maybe also the new RSC approach might bring issues when to use Client
+Maybe also the new RSC approach might bring issue over when/if to use Client
 components, in order to optimise the performance. In general, I’m trying to
 stick to the rule of “everything is a server component unless it needs
 interactivity or browser APIs”. I’m still trying to find good ways of debugging
 RSC, since they don’t appear in the browser and they need to be approach more
 like in a backend style (logging)
 
-In the past I’ve also find some caching behaviours. In general nowadays I would
+In the past I’ve also found some confusing caching behaviours. Nowadays I would
 think about carefully, trying to find out which parts of the app can be
 statically rendered, which ones might work with periodic revalidation, and which
 ones need zero caching because they need to be updated as much as possible (like
@@ -247,32 +249,36 @@ dashboards, or more real time components)
 I have to say I’ve use auth in the projects I’ve worked on, but I never set it
 myself. Sometimes I’m happy enough if I know things “exist”, like I know the
 pointers if I need to use it. Then, when the time comes, I deep dive into it!
+
 But in any case, I would first survey on our team/company to see if somebody had
 hands-on experience on any library or platform for auth. I value a lot the
 hands-on experience, and also if we can standarise practices across projects
-(this way, it’s also easier to ask for help or share experiences). If it were up
-to me to decide, I would first do some research and get a couple or 3
-candidates. For example, nowadays I could ponder between
+(this way, it’s also easier to ask for help or share experiences).
+
+If it were up to me to decide, I would first do some research and get a couple
+or 3 candidates. For example, nowadays I could ponder between
 [auth.js](https://authjs.dev/) (which seems easier to implement, and apparently
 comes from the same team as Next.js, and seems very integrated to the next.js
 flow), [better-auth](https://www.better-auth.com/) (seems to have very good
 reviews, lots of tutorials available, also self-hosted and open-source), and
 auth0 (we were using it at Notabene, it worked as an external SaaS, it had a
 nice dashboard, we could also manage M2M tokens from there for our API
-business). Depending on the need of the project, I would then go ahead and build
-a prototype. For the 3 solutions above, I would consider if we need to issue M2M
-credentials (then use auth0, which is also easier to handle for non-coders on
-our company), otherwise I’d go first with the self-hosted solutions.
+business). Depending on the needs of the project, I would then go ahead and
+build a prototype. For the 3 solutions above, I would consider if we need to
+issue M2M credentials (then use auth0, which is also easier to handle for
+non-coders on our company), otherwise I’d go first with the self-hosted
+solutions.
 
-Regarding roles and permissions, in my experience there is a table on our DB
-where we store the role for each User. We should also set the permissions for
-each role (ie the actions and information she is allowed to access) in a
+Regarding roles and permissions, in my experience there normally is a table on
+our DB where we store the role for each User. We should also set the permissions
+for each role (ie the actions and information she is allowed to access) in a
 convenient way, for example a JSON or TS enums. I believe typically this role
 can be encoded in the JWT, but I’m happy to be proven wrong.
 
 In any case, later on in our codebase (frontend and backend) we need to add
-checks based on the user role and permissions, so for example we can throw an
-error if the user is trying to access an API without the permissions for it.
+granular checks based on the user role and permissions, so for example we can
+throw an error if the user is trying to access an API without the permissions
+for it.
 
 Also, really make sure there is no leakage on the front end about the tokens
 (keep them in the next.js server side), and never commit any API key or secret
