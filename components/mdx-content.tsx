@@ -4,6 +4,7 @@ import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote/rsc'
 
 import Counter from '@/components/counter'
 import SendEmailToMyselfButton from '@/components/send-email-to-myself-button'
+import LoomVideo from '@/components/loom-video'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Code({ children, ...props }: any) {
@@ -61,7 +62,8 @@ const components = {
   h5: (props: JSX.IntrinsicElements['h5']) => <Heading as='h5' {...props} />,
   h6: (props: JSX.IntrinsicElements['h6']) => <Heading as='h6' {...props} />,
   Counter,
-  SendEmailToMyselfButton
+  SendEmailToMyselfButton,
+  LoomVideo
 }
 
 export default function MDXContent(
