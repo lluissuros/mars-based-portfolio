@@ -49,6 +49,9 @@ export default function Header() {
             <Link href='/posts'>Parrafades</Link>
           </li>
           <li className='hover:text-foreground transition-colors'>
+            <Link href='/tests'>Tests</Link>
+          </li>
+          <li className='hover:text-foreground transition-colors'>
             <Link href='/contact'>Contact</Link>
           </li>
         </ul>
