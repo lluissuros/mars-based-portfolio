@@ -1,22 +1,12 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import useDebounce from './useDebounce'
 
 type ReturnHook<T> = {
   originalCollection: T[] | undefined
   filteredCollection: T[] | undefined
   setOriginalCollection: (collection: T[] | undefined) => void
-}
-
-function useDebounce<T>(value: T, delay: number): T {
-  const [debouncedValue, setDebouncedValue] = useState<T>(value)
-  useEffect(() => {
-    const timerID = setTimeout(() => {
-      setDebouncedValue(value)
-    }, delay)
-    return () => clearTimeout(timerID)
-  }, [value, delay])
-  return debouncedValue
 }
 
 export default function useFilterCollectionByName<T extends { name: string }>(
@@ -30,10 +20,9 @@ export default function useFilterCollectionByName<T extends { name: string }>(
     undefined
   )
 
-  const debouncedQuery = useDebounce(query, 300) // 300ms example
+  const debouncedQuery = useDebounce(query, 300)
 
   useEffect(() => {
-    //TODO: useDebounce?
     //TODO: useRef for cache previous results/
     console.log('useEffect query', debouncedQuery)
 
