@@ -8,6 +8,17 @@ type ReturnHook<T> = {
   setOriginalCollection: (collection: T[] | undefined) => void
 }
 
+function useDebounce<T>(value: T, delay: number): T {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value)
+  useEffect(() => {
+    const timerID = setTimeout(() => {
+      setDebouncedValue(value)
+    }, delay)
+    return () => clearTimeout(timerID)
+  }, [value, delay])
+  return debouncedValue
+}
+
 export default function useFilterCollectionByName<T extends { name: string }>(
   query: string
   // originalCollectionWithNames: T[] | undefineds
@@ -19,16 +30,18 @@ export default function useFilterCollectionByName<T extends { name: string }>(
     undefined
   )
 
+  const debouncedQuery = useDebounce(query, 300) // 300ms example
+
   useEffect(() => {
     //TODO: useDebounce?
     //TODO: useRef for cache previous results/
-    console.log('useEffect query', query)
+    console.log('useEffect query', debouncedQuery)
 
     const newFilteredCollection = originalCollection?.filter(item =>
-      item.name.toLowerCase().includes(query.toLowerCase())
+      item.name.toLowerCase().includes(debouncedQuery.toLowerCase())
     )
     setFilteredCollection(newFilteredCollection)
-  }, [query, originalCollection])
+  }, [debouncedQuery, originalCollection])
 
   return { originalCollection, filteredCollection, setOriginalCollection }
 }
